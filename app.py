@@ -28,14 +28,12 @@ credential = {
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bigquery%40thinking-text-180509.iam.gserviceaccount.com"
 }
 
-import json
-f = open('file.txt', 'wb')
-f.write(json.dumps(credential))
-f.close()
+
 from __future__ import print_function
 from future.standard_library import install_aliases
 install_aliases()
-
+import pandas as pd
+import json
 from urllib.parse import urlparse, urlencode
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError
@@ -44,9 +42,6 @@ from google.cloud.bigquery.client import Client
 #credentials, project = google.auth.default()
 #client = Client(credentials=credentials)
 #client = Client()
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'file.txt'
-client = Client()
-import json
 import os
 
 from flask import Flask
@@ -83,10 +78,13 @@ def processRequest(req):
         return {}
     #yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
     #result = urlopen(yql_url).read()
-    query_job = client.query(yql_query)
-    rows = query_job.result()
-    for row in rows:
-        data = (row)[0]
+    #query_job = client.query(yql_query)
+    query_job = pd.read_gbq(yql_query, project_id=credential['project_id'], index_col=None, col_order=None,
+                reauth=False, verbose=True, private_key=json.dumps(credential), dialect='standard')
+    #rows = query_job.result()
+    #for row in rows:
+    #    data = (row)[0]
+    data = query_job.ix[0,0]
     #data = json.loads(result)
     return { "speech": data,
         "displayText": data
