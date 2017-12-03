@@ -3,5 +3,4 @@ future==0.16.0
 google.auth
 google.cloud
 pandas-gbq
-json
 pandas
