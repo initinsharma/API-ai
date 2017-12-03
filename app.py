@@ -69,9 +69,11 @@ def processRequest(req):
     for row in rows:
         data = (row)[0]
     #data = json.loads(result)
-    
-    res = makeWebhookResult(data,req)
-    return res
+    return { "speech": data,
+        "displayText": data
+            }
+    #res = makeWebhookResult(data,req)
+    #return res
 
 
 def makeYqlQuery(req):
