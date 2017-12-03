@@ -22,10 +22,6 @@ install_aliases()
 from urllib.parse import urlparse, urlencode
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError
-import google.auth
-from google.cloud.bigquery.client import Client
-credentials, project = google.auth.default()
-client = Client(credentials=credentials)
 
 import json
 import os
@@ -57,17 +53,13 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
-    #baseurl = "https://query.yahooapis.com/v1/public/yql?"
+    baseurl = "https://query.yahooapis.com/v1/public/yql?"
     yql_query = makeYqlQuery(req)
     if yql_query is None:
         return {}
-    #yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
-    #result = urlopen(yql_url).read()
-    query_job = client.query(yql_query)
-    rows = query_job.result()
-    for row in rows:
-        data = (row)[0]
-    #data = json.loads(result)
+    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
+    result = urlopen(yql_url).read()
+    data = json.loads(result)
     res = makeWebhookResult(data)
     return res
 
@@ -79,40 +71,36 @@ def makeYqlQuery(req):
     if city is None:
         return None
 
-    #return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
-    return  "SELECT count(*) FROM `bigquery-public-data.irs_990.irs_990_ein`WHERE city ='" + city + "'"
+    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
 
 
 def makeWebhookResult(data):
-    result = req.get("result")
-    parameters = result.get("parameters")
-    city = parameters.get("geo-city")
-    #query = data.get('query')
-    #if query is None:
-    #    return {}
+    query = data.get('query')
+    if query is None:
+        return {}
 
-    #result = query.get('results')
-    result = data
+    result = query.get('results')
     if result is None:
         return {}
 
-    #channel = result.get('channel')
-    #if channel is None:
-     #   return {}
+    channel = result.get('channel')
+    if channel is None:
+        return {}
 
-    #item = channel.get('item')
+    item = channel.get('item')
     location = channel.get('location')
-    #units = channel.get('units')
-    #if (location is None) or (item is None) or (units is None):
-     #   return {}
+    units = channel.get('units')
+    if (location is None) or (item is None) or (units is None):
+        return {}
 
-    #condition = item.get('condition')
-    #if condition is None:
-     #   return {}
+    condition = item.get('condition')
+    if condition is None:
+        return {}
 
     # print(json.dumps(item, indent=4))
 
-    speech = "Hi Total Number of Organization in  " + city + "is " result
+    speech = "Hi Today the weather in " + location.get('city') + ": " + condition.get('text') + \
+             ", And the temperature is " + condition.get('temp') + " " + units.get('temperature')
 
     print("Response:")
     print(speech)
