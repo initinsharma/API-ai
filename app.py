@@ -33,7 +33,7 @@ from __future__ import print_function
 from future.standard_library import install_aliases
 install_aliases()
 import pandas as pd
-import json
+import simplejson as json
 from urllib.parse import urlparse, urlencode
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError
