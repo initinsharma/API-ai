@@ -42,6 +42,7 @@ from google.cloud.bigquery.client import Client
 #client = Client(credentials=credentials)
 client = Client()
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential
+client = Client()
 import json
 import os
 
