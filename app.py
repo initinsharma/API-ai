@@ -69,7 +69,8 @@ def processRequest(req):
     for row in rows:
         data = (row)[0]
     #data = json.loads(result)
-    res = makeWebhookResult(data)
+    
+    res = makeWebhookResult(data,req)
     return res
 
 
@@ -87,7 +88,7 @@ def makeYqlQuery(req):
              'LIMIT 2'
 
 
-def makeWebhookResult(data):
+def makeWebhookResult(data,req):
     result = req.get("result")
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
