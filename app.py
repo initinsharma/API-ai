@@ -28,7 +28,10 @@ credential = {
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bigquery%40thinking-text-180509.iam.gserviceaccount.com"
 }
 
-
+import json
+f = open('file.txt', 'wb')
+f.write(json.dumps(credential))
+f.close()
 from __future__ import print_function
 from future.standard_library import install_aliases
 install_aliases()
@@ -40,8 +43,8 @@ import google.auth
 from google.cloud.bigquery.client import Client
 #credentials, project = google.auth.default()
 #client = Client(credentials=credentials)
-client = Client()
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential
+#client = Client()
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'file.txt'
 client = Client()
 import json
 import os
