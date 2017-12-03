@@ -79,16 +79,19 @@ def processRequest(req):
     #yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
     #result = urlopen(yql_url).read()
     #query_job = client.query(yql_query)
-    query_job = pd.read_gbq(yql_query, project_id=credential['project_id'], index_col=None, col_order=None,
-                reauth=False, verbose=True, private_key=json.dumps(credential), dialect='standard')
+    return { "speech": yql_query,
+        "displayText": yql_query
+            }
+    #query_job = pd.read_gbq(yql_query, project_id=credential['project_id'], index_col=None, col_order=None,
+     #           reauth=False, verbose=True, private_key=json.dumps(credential), dialect='standard')
     #rows = query_job.result()
     #for row in rows:
     #    data = (row)[0]
     data = query_job.ix[0,0]
     #data = json.loads(result)
-    return { "speech": data,
-        "displayText": data
-            }
+    #return { "speech": data,
+    #    "displayText": data
+     #       }
     #res = makeWebhookResult(data,req)
     #return res
 
