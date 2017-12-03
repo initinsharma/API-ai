@@ -15,6 +15,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+credential = {
+  "type": "service_account",
+  "project_id": "thinking-text-180509",
+  "private_key_id": "15ff34e6d5d187fcdc774bdae8695f47241d7827",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQChF1Yhrlvcnqt8\nvpRzDPDZatQlmU9K5kkzValoYDw2dEbjR3Y4SMbqI2odIiRquBsw1DBH+C+ewD5s\nvYjNg4hrhw7NvMUAUoS2GtS9w8ayaTbV99k5OdUgGm5SgSTXuw9yyzLCQ7Mmlpks\nFof3cWZ+NPyHu/otWX4dzfOQ3vhHmuLA0lSVEvbn01z/GKhnDGiYNF87WNOIUZLK\nNxsdgAFVTxHb3ldi0RCWuQuSwRLtDGBSEyZfMGT62j7gLNoMrR6fBXnJMKhSLro4\n2kdrSsjN+C4OZgBRU+ebLQVueElM+cODlyxSRVIqemg6RqnolFGEKRjnmFdsVu8S\n/QHgx6cjAgMBAAECggEACRXl3EtOEDHz68zuMeb5zWlnC/2LBMK2iQ7zfjRocPrx\n5bhFO4ST2lTH3MjId+Iff53O803nTRf8Ww5Gs4nGwfCmG6q9nkGbeyHcRUH0nz0Z\nn4KjXXvBQJ+z3A4/df7SCju1Ygk9vbu0sr8DtwME52jHWx9RAlLrQSunDfWJ/P2D\nkWSlRvPrUkvO+2hBC/iiFJfODMJJQBBQtmilQCnKN/AEAemrias6s/4s+2BdlGIj\nRDmfHNOQHjMpzqA13INyE3OMaMIi1jnke0QJ4+Kr4dcrGztSVjPETBzxmDEphZYO\ncUiudCu9MsOq2pbQAqgjCufFgTq6+Yho7Tt4R8BMAQKBgQDSJEKXwzp7APCqHBXl\nWqI1pCKWnN1gTV78zpdIqBvrL42H6T5JlHSaeXe5/XJ/JOfO6HfGdZE9DgKZvxoi\nllClctG3BMokRXZWojDXZGx+1J4irFrOr4RBOeX/FJrdzngHhlRTXId8R/YnPao/\nDg+6/2jaL2xT+8gwY/KqgG/gIwKBgQDEPtRqY9vtjOjS4RW6JeJ32aPvNOOOI0V7\n+HudDbU2JOOO/6sN/Yrg5911kcU9g0KIJXRHisUGSCfEWYwklW/ncxb6h2UtsExl\nNchJWJ0zrUXBXf9AfIXibPw50hXQ+cHTixqyE5Gc61dwsrmkg3qs06tXDIhUwD9r\n9EqbipINAQKBgFdEV6NOn+qU6Vy7bRxiFxrPns2NNyHW/6tc39Z8eZuhk9TtN8C2\ntfWwm9fROMs0OE/kmlkAWeBRASN4CRJz+em7VPv8MTX+4rX3hPDt82B4S3N6v/s1\nSGcN9EWJ+QZDx/TYBAzaUCl8eOyy3xBwdnfhuVlieEooNWpjF1NXIx6hAoGAMl6B\n/LCWwTj6hS26euXAY8ybtAjaIyBQdEpJx/y9tyDuu0RJ7jRWUfWRNNzuSCSJjhI2\n7ynh+gPJGS92tekZKMm0aycXRAvM/+k2+ARjjOD7V2891ZpgbsZUUq7mZJXGNvqs\nJmq5ZBJPhiCJX31TnkpR3uzbjQ0u+hFgmN2PMQECgYAbAkgsrDqN7dMnby7Oqmwi\nXDjhuunEAXCcgLiVX6DUXAFvHImxytBFubscHdlPhy+Xy7UPa52+WSCdNaKN0HIL\n6+dbhu1xgdf/J6zC8pmjlNcSHsr/JDOzjxso/RQpLNVoUY61BnMWomZi0Ivkm3dF\n12tU661Q7Ar6X5FeHRE+ZQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "bigquery@thinking-text-180509.iam.gserviceaccount.com",
+  "client_id": "111452959638693076451",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bigquery%40thinking-text-180509.iam.gserviceaccount.com"
+}
+
+
 from __future__ import print_function
 from future.standard_library import install_aliases
 install_aliases()
@@ -24,9 +38,10 @@ from urllib.request import urlopen, Request
 from urllib.error import HTTPError
 import google.auth
 from google.cloud.bigquery.client import Client
-credentials, project = google.auth.default()
-client = Client(credentials=credentials)
-
+#credentials, project = google.auth.default()
+#client = Client(credentials=credentials)
+client = Client()
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential
 import json
 import os
 
