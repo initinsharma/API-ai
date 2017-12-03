@@ -88,7 +88,7 @@ def processRequest(req):
     #rows = query_job.result()
     #for row in rows:
     #    data = (row)[0]
-    data = query_job.ix[0,0]
+    #data = query_job.ix[0,0]
     #data = json.loads(result)
     #return { "speech": data,
     #    "displayText": data
