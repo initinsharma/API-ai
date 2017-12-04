@@ -23,7 +23,7 @@ install_aliases()
 from urllib.parse import urlparse, urlencode
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError
-import pandas  as pd
+import pandas
 import json
 import os
 
@@ -74,7 +74,7 @@ def processRequest(req):
     #         "source": "apiai-weather-webhook-sample"
     #        }
     #return res
-    query_job = pd.read_gbq(yql_query, project_id=credential['project_id'], index_col=None, col_order=None,
+    query_job = pandas.read_gbq(yql_query, project_id=credential['project_id'], index_col=None, col_order=None,
                 reauth=False, verbose=True, private_key=json.dumps(credential), dialect='standard')
     res =  { "speech": query_job,
         "displayText": query_job,
