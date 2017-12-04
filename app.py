@@ -31,8 +31,12 @@ from flask import Flask
 from flask import request
 from flask import make_response
 
+
 # Flask app should start in global layout
 app = Flask(__name__)
+
+
+
 
 
 @app.route('/webhook', methods=['POST'])
@@ -56,22 +60,27 @@ def processRequest(req):
         return {}
     #baseurl = "https://query.yahooapis.com/v1/public/yql?"
     yql_query = makeYqlQuery(req)
-    speech = yql_query
-    #print(yql_query)
-    #if yql_query is None:
-    #    return {}
+    #speech = yql_query
+    print(yql_query)
+    if yql_query is None:
+        return {}
     #yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
     #result = urlopen(yql_url).read()
     #query_job = client.query(yql_query)
-    print("Response:")
-    print(speech)
-    res =  { "speech": speech,
-        "displayText": speech,
+    #print("Response:")
+    #print(speech)
+    #res =  { "speech": speech,
+    #    "displayText": speech,
+    #         "source": "apiai-weather-webhook-sample"
+    #        }
+    #return res
+    query_job = pd.read_gbq(yql_query, project_id=credential['project_id'], index_col=None, col_order=None,
+                reauth=False, verbose=True, private_key=json.dumps(credential), dialect='standard')
+    res =  { "speech": query_job,
+        "displayText": query_job,
              "source": "apiai-weather-webhook-sample"
             }
     return res
-    #query_job = pd.read_gbq(yql_query, project_id=credential['project_id'], index_col=None, col_order=None,
-     #           reauth=False, verbose=True, private_key=json.dumps(credential), dialect='standard')
     #rows = query_job.result()
     #for row in rows:
     #    data = (row)[0]
@@ -150,6 +159,19 @@ def makeWebhookResult(data):
 
 
 if __name__ == '__main__':
+    
+    credential = {
+  "type": "service_account",
+  "project_id": "thinking-text-180509",
+  "private_key_id": "15ff34e6d5d187fcdc774bdae8695f47241d7827",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQChF1Yhrlvcnqt8\nvpRzDPDZatQlmU9K5kkzValoYDw2dEbjR3Y4SMbqI2odIiRquBsw1DBH+C+ewD5s\nvYjNg4hrhw7NvMUAUoS2GtS9w8ayaTbV99k5OdUgGm5SgSTXuw9yyzLCQ7Mmlpks\nFof3cWZ+NPyHu/otWX4dzfOQ3vhHmuLA0lSVEvbn01z/GKhnDGiYNF87WNOIUZLK\nNxsdgAFVTxHb3ldi0RCWuQuSwRLtDGBSEyZfMGT62j7gLNoMrR6fBXnJMKhSLro4\n2kdrSsjN+C4OZgBRU+ebLQVueElM+cODlyxSRVIqemg6RqnolFGEKRjnmFdsVu8S\n/QHgx6cjAgMBAAECggEACRXl3EtOEDHz68zuMeb5zWlnC/2LBMK2iQ7zfjRocPrx\n5bhFO4ST2lTH3MjId+Iff53O803nTRf8Ww5Gs4nGwfCmG6q9nkGbeyHcRUH0nz0Z\nn4KjXXvBQJ+z3A4/df7SCju1Ygk9vbu0sr8DtwME52jHWx9RAlLrQSunDfWJ/P2D\nkWSlRvPrUkvO+2hBC/iiFJfODMJJQBBQtmilQCnKN/AEAemrias6s/4s+2BdlGIj\nRDmfHNOQHjMpzqA13INyE3OMaMIi1jnke0QJ4+Kr4dcrGztSVjPETBzxmDEphZYO\ncUiudCu9MsOq2pbQAqgjCufFgTq6+Yho7Tt4R8BMAQKBgQDSJEKXwzp7APCqHBXl\nWqI1pCKWnN1gTV78zpdIqBvrL42H6T5JlHSaeXe5/XJ/JOfO6HfGdZE9DgKZvxoi\nllClctG3BMokRXZWojDXZGx+1J4irFrOr4RBOeX/FJrdzngHhlRTXId8R/YnPao/\nDg+6/2jaL2xT+8gwY/KqgG/gIwKBgQDEPtRqY9vtjOjS4RW6JeJ32aPvNOOOI0V7\n+HudDbU2JOOO/6sN/Yrg5911kcU9g0KIJXRHisUGSCfEWYwklW/ncxb6h2UtsExl\nNchJWJ0zrUXBXf9AfIXibPw50hXQ+cHTixqyE5Gc61dwsrmkg3qs06tXDIhUwD9r\n9EqbipINAQKBgFdEV6NOn+qU6Vy7bRxiFxrPns2NNyHW/6tc39Z8eZuhk9TtN8C2\ntfWwm9fROMs0OE/kmlkAWeBRASN4CRJz+em7VPv8MTX+4rX3hPDt82B4S3N6v/s1\nSGcN9EWJ+QZDx/TYBAzaUCl8eOyy3xBwdnfhuVlieEooNWpjF1NXIx6hAoGAMl6B\n/LCWwTj6hS26euXAY8ybtAjaIyBQdEpJx/y9tyDuu0RJ7jRWUfWRNNzuSCSJjhI2\n7ynh+gPJGS92tekZKMm0aycXRAvM/+k2+ARjjOD7V2891ZpgbsZUUq7mZJXGNvqs\nJmq5ZBJPhiCJX31TnkpR3uzbjQ0u+hFgmN2PMQECgYAbAkgsrDqN7dMnby7Oqmwi\nXDjhuunEAXCcgLiVX6DUXAFvHImxytBFubscHdlPhy+Xy7UPa52+WSCdNaKN0HIL\n6+dbhu1xgdf/J6zC8pmjlNcSHsr/JDOzjxso/RQpLNVoUY61BnMWomZi0Ivkm3dF\n12tU661Q7Ar6X5FeHRE+ZQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "bigquery@thinking-text-180509.iam.gserviceaccount.com",
+  "client_id": "111452959638693076451",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bigquery%40thinking-text-180509.iam.gserviceaccount.com"
+}
     port = int(os.getenv('PORT', 5000))
 
     print("Starting app on port %d" % port)
