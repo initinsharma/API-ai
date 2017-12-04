@@ -73,16 +73,18 @@ def processRequest(req):
     #baseurl = "https://query.yahooapis.com/v1/public/yql?"
     #yql_query = makeYqlQuery(req)
     yql_query = "Hi"
-    print(yql_query)
+    #print(yql_query)
     if yql_query is None:
         return {}
     #yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
     #result = urlopen(yql_url).read()
     #query_job = client.query(yql_query)
-    return { "speech": yql_query,
+    res =  { "speech": yql_query,
         "displayText": yql_query,
              "source": "apiai-weather-webhook-sample"
+            
             }
+    return res
     #query_job = pd.read_gbq(yql_query, project_id=credential['project_id'], index_col=None, col_order=None,
      #           reauth=False, verbose=True, private_key=json.dumps(credential), dialect='standard')
     #rows = query_job.result()
