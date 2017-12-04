@@ -23,7 +23,7 @@ install_aliases()
 from urllib.parse import urlparse, urlencode
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError
-
+import pandas  as pd
 import json
 import os
 
