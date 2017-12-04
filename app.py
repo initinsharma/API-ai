@@ -113,7 +113,8 @@ def makeYqlQuery(req):
 
     #return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
     #return city
-    return  "SELECT count(*) FROM `bigquery-public-data.irs_990.irs_990_ein` WHERE city = '" + city + "'" + "ignore case"
+    return "SELECT count(*) FROM `bigquery-public-data.irs_990.irs_990_ein`"
+    #return  "SELECT count(*) FROM `bigquery-public-data.irs_990.irs_990_ein` WHERE city = '" + city + "'"
     #return 'SELECT count(*) FROM `bigquery-public-data.irs_990.irs_990_ein`'
             #'WHERE city = "SUNNYVALE" '
             # 'LIMIT 2'
