@@ -58,8 +58,8 @@ def processRequest(req):
     #yql_query = makeYqlQuery(req)
     speech = "Hi"
     #print(yql_query)
-    if yql_query is None:
-        return {}
+    #if yql_query is None:
+    #    return {}
     #yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
     #result = urlopen(yql_url).read()
     #query_job = client.query(yql_query)
