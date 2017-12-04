@@ -102,7 +102,7 @@ def makeYqlQuery2(req):
     if city is None:
         return None
 
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
+    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city.upper() + "')"
 
 def makeYqlQuery(req):
     result = req.get("result")
