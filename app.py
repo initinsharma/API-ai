@@ -74,8 +74,7 @@ def processRequest(req):
     #         "source": "apiai-weather-webhook-sample"
     #        }
     #return res
-    query_job = pandas.read_gbq(yql_query, project_id=credential['project_id'], index_col=None, col_order=None,
-                reauth=False, verbose=True, private_key=json.dumps(credential), dialect='standard')
+    query_job = "pandas.read_gbq(yql_query, project_id=credential['project_id'], index_col=None, col_order=None,reauth=False, verbose=True, private_key=json.dumps(credential), dialect='standard')"
     res =  { "speech": query_job,
         "displayText": query_job,
              "source": "apiai-weather-webhook-sample"
