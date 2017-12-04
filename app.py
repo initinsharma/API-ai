@@ -78,7 +78,8 @@ def processRequest(req):
         query_job = pandas.read_gbq(str(yql_query),
                                  project_id=credential['project_id'], index_col=None, col_order=None,
                                  reauth=False, verbose=True, private_key=json.dumps(credential), dialect='standard')
-        query_job = "nitin"
+        #query_job = "nitin"
+        query_job = query_job.ix[0,0]
     except Exception as e :
         query_job = "ERROR"
     #query_job = str(yql_query) + str(credential['project_id'] ) + str(json.dumps(credential))
