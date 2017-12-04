@@ -84,7 +84,7 @@ def processRequest(req):
     #return res
 
 
-def makeYqlQuery(req):
+def makeYqlQuery2(req):
     result = req.get("result")
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
@@ -92,6 +92,20 @@ def makeYqlQuery(req):
         return None
 
     return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
+
+def makeYqlQuery(req):
+    result = req.get("result")
+    parameters = result.get("parameters")
+    city = parameters.get("geo-city")
+    if city is None:
+        return None
+
+    #return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
+    #return  "SELECT count(*) FROM `bigquery-public-data.irs_990.irs_990_ein`WHERE city ='" + city + "'"
+    return 'SELECT count(*) FROM `bigquery-public-data.irs_990.irs_990_ein`'
+            #'WHERE city = "SUNNYVALE" '
+            # 'LIMIT 2'
+
 
 
 def makeWebhookResult(data):
