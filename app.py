@@ -55,8 +55,8 @@ def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
     #baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    #yql_query = makeYqlQuery(req)
-    speech = "Hi"
+    yql_query = makeYqlQuery(req)
+    speech = yql_query
     #print(yql_query)
     #if yql_query is None:
     #    return {}
