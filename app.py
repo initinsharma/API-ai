@@ -116,11 +116,13 @@ def makeYqlQuery(req):
     if city is None:
         return None
      #city = str.upper(str(city))
+    city = city.lower()
+    
 
     #return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
     #return city
     #return "SELECT count(*) FROM `bigquery-public-data.irs_990.irs_990_ein` WHERE city = 'SUNNYVALE'"
-    return "SELECT count(*) FROM `bigquery-public-data.irs_990.irs_990_ein` WHERE lower(city) = '" + city + "'"
+    return "SELECT count(*) FROM `bigquery-public-data.irs_990.irs_990_ein` WHERE LOWER(city) = '" + city + "'"
     #WHERE LOWER(city) = '" + city + "'"
     #WHERE LOWER(city) = '" + city + "'"
     #return  "SELECT count(*) FROM `bigquery-public-data.irs_990.irs_990_ein` WHERE city = '" + city + "'"
