@@ -83,8 +83,9 @@ def processRequest(req):
     except Exception as e :
         query_job = "ERROR"
     #query_job = str(yql_query) + str(credential['project_id'] ) + str(json.dumps(credential))
-    res =  { "speech": query_job,
-        "displayText": query_job,
+    speech = "Hi, Number of organizations in " + city + " are " + query_job
+    res =  { "speech": speech,
+        "displayText": speech,
              "source": "apiai-weather-webhook-sample"
             }
     return res
