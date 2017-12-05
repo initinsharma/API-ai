@@ -56,54 +56,40 @@ def webhook():
 
 
 def processRequest(req):
-    
-    if req.get("result").get("action") != "yahooWeatherForecast":
-        return {}
-    result = req.get("result")
-    parameters = result.get("parameters")
-    city = parameters.get("geo-city")
-    #baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    yql_query = makeYqlQuery(req)
-    #speech = yql_query
-    print(yql_query)
-    if yql_query is None:
-        return {}
-    #yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
-    #result = urlopen(yql_url).read()
-    #query_job = client.query(yql_query)
-    #print("Response:")
-    #print(speech)
-    #res =  { "speech": speech,
-    #    "displayText": speech,
-    #         "source": "apiai-weather-webhook-sample"
-    #        }
-    #return res
-    try:
-        query_job = pandas.read_gbq(str(yql_query),
+    if req.get("result").get("action") == "googleBigquery":
+        #return {}
+        result = req.get("result")
+        parameters = result.get("parameters")
+        city = parameters.get("geo-city")
+        yql_query = makeYqlQuery(req)
+        print(yql_query)
+        if yql_query is None:
+            return {}
+        try:
+            query_job = pandas.read_gbq(str(yql_query),
                                  project_id=credential['project_id'], index_col=None, col_order=None,
                                  reauth=False, verbose=True, private_key=json.dumps(credential), dialect='standard')
-        #query_job = "nitin"
-        query_job = str(query_job.ix[0,0])
-    except Exception as e :
-        query_job = "ERROR"
-    #query_job = str(yql_query) + str(credential['project_id'] ) + str(json.dumps(credential))
-    speech = "Hi, Number of organizations in " + city + " are " + query_job
-    res =  { "speech": speech,
-        "displayText": speech,
+            query_job = str(query_job.ix[0,0])
+        except Exception as e :
+            query_job = "ERROR"
+        speech = "Hi, Number of organizations in " + city + " are " + query_job
+        res =  { "speech": speech,
+            "displayText": speech,
              "source": "apiai-weather-webhook-sample"
-            }
-    return res
-    #rows = query_job.result()
-    #for row in rows:
-    #    data = (row)[0]
-    #data = query_job.ix[0,0]
-    #data = json.loads(result)
-    #return { "speech": data,
-    #    "displayText": data
-     #       }
-    #res = makeWebhookResult(data,req)
-    #return res
-
+                }
+        return res
+    elif req.get("result").get("action") == "yahooWeatherForecast" :
+        baseurl = "https://query.yahooapis.com/v1/public/yql?"
+        yql_query = makeYqlQuery2(req)
+        if yql_query is None:
+            return {}
+        yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
+        result = urlopen(yql_url).read()
+        data = json.loads(result)
+        res = makeWebhookResult(data)
+        return res
+    else :
+        return {}
 
 def makeYqlQuery2(req):
     result = req.get("result")
