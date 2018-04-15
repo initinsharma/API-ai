@@ -94,11 +94,11 @@ def processRequest(req):
         undertone = parameters.get("undertone")
         color = parameters.get("number")
         state =  parameters.get("element_state")
-        if undertone =="Warm" and state == "liquid" and color <5:
+        if undertone =="Warm" and state == "Liquid" and color <5:
             product = "Nivea"
         else:
             product = "Lakme"
-        speech = "Hi, Rigt Product for you is  " + product 
+        speech = "Hi, Rigt Product for you is  " + undertone 
         res =  { "speech": speech,
             "displayText": speech,
              "source": "apiai-weather-webhook-sample"
