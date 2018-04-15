@@ -88,7 +88,7 @@ def processRequest(req):
         data = json.loads(result)
         res = makeWebhookResult(data)
         return res
-   elif req.get("result").get("action") == "productSelection" :
+    elif req.get("result").get("action") == "productSelection" :
         result = req.get("result")
         parameters = result.get("parameters")
         undertone = parameters.get("undertone")
@@ -99,12 +99,12 @@ def processRequest(req):
         else:
             product = "Lakme"
         speech = "Hi, Rigt Product for you is  " + product 
-         res =  { "speech": speech,
+        res =  { "speech": speech,
             "displayText": speech,
              "source": "apiai-weather-webhook-sample"
                 }
-         return res
-   else :
+        return res
+    else :
         return {}
 
 def makeYqlQuery2(req):
