@@ -100,7 +100,7 @@ def processRequest(req):
             product = "Lakme"
         speech = "Hi, Rigt Product for you is  " + product 
         res =  { "speech": product,
-            "displayText": product,
+            "displayText": color,
              "source": "apiai-weather-webhook-sample"
                 }
         return res
