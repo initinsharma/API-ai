@@ -105,7 +105,7 @@ def processRequest(req):
             prodcut = "Ponds Cream"
         if undertone == "neutral" and state == "liquid" and color <= 5:
             product = "Vaseline"
-        if undertone == "warm" and state == "powder" and color <= 10:
+        if undertone == "warm" and state == "powder" and color <= 8:
             product = "Boroline"
         else:
             product = "Lakme"
