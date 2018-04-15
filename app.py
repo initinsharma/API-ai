@@ -94,7 +94,7 @@ def processRequest(req):
         undertone = parameters.get("undertone")
         color = parameters.get("number")
         state =  parameters.get("element_state")
-        if undertone =="Warm" and if state == "liquid" and color <5:
+        if undertone =="Warm" and state == "liquid" and color <5:
             product = "Nivea"
         else:
             product = "Lakme"
@@ -104,7 +104,7 @@ def processRequest(req):
              "source": "apiai-weather-webhook-sample"
                 }
          return res
-       else :
+   else :
         return {}
 
 def makeYqlQuery2(req):
