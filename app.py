@@ -99,13 +99,13 @@ def processRequest(req):
         state = state.lower()
         if undertone == "warm" and state == "liquid" and color <= 5:
             product = "Nivea"
-        if undertone == "warm" and state == "powder" and color <= 5:
+        elif undertone == "warm" and state == "powder" and color <= 5:
             product = "Vicco Turmeric"
-        if undertone == "cool" and state == "liquid" and color <= 5:
+        elif undertone == "cool" and state == "liquid" and color <= 5:
             prodcut = "Ponds Cream"
-        if undertone == "neutral" and state == "liquid" and color <= 5:
+        elif undertone == "neutral" and state == "liquid" and color <= 5:
             product = "Vaseline"
-        if undertone == "warm" and state == "powder" and color <= 8:
+        elif undertone == "warm" and state == "powder" and color <= 8:
             product = "Boroline"
         else:
             product = "Lakme"
