@@ -90,7 +90,7 @@ def processRequest(req):
         return res
     elif req.get("result").get("action") == "productSelection" :
         result = req.get("result")
-        parameters = result.get("parameters")
+        parameters = result['contexts'][0].get("parameters")
         undertone = parameters.get("undertone")
         color = parameters.get("number")
         state =  parameters.get("element_state")
