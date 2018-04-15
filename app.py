@@ -94,7 +94,7 @@ def processRequest(req):
         undertone = parameters.get("undertone")
         color = parameters.get("number")
         state =  parameters.get("element_state")
-        if undertone =="Warm" and state == "Liquid" and color == 3:
+        if undertone =="Warm" and state == "Liquid" and color == "3":
             product = "Nivea"
         else:
             product = "Lakme"
