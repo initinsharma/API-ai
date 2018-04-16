@@ -105,7 +105,7 @@ def processRequest(req):
             prodcut = "Goodness full coverage makeup"
         elif undertone == "neutral" and state == "liquid" and color <= 5:
             product = "Goodness full coverage makeup"
-        elif undertone == "warm" and state == "powder" and color <= 8:
+        elif state == "powder" and color >= 0:
             product = "Mattifying Foundation"
         else:
             product = "Lakme"
