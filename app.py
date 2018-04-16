@@ -99,7 +99,7 @@ def processRequest(req):
         state = state.lower()
         if undertone == "warm" and state == "liquid" and color <= 5:
             product = "Goodness full coverage makeup"
-        elif undertone == "warm" and state == "powder" and color <= 5:
+        elif undertone == "warm" and state == "liquid" and color <= 5:
             product = "Goodness full coverage makeup"
         elif undertone == "cool" and state == "liquid" and color <= 5:
             prodcut = "Goodness full coverage makeup"
