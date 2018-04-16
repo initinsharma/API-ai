@@ -98,15 +98,15 @@ def processRequest(req):
         state =  parameters.get("element_state")
         state = state.lower()
         if undertone == "warm" and state == "liquid" and color <= 5:
-            product = "Nivea"
+            product = "Goodness full coverage makeup"
         elif undertone == "warm" and state == "powder" and color <= 5:
-            product = "Vicco Turmeric"
+            product = "Goodness full coverage makeup"
         elif undertone == "cool" and state == "liquid" and color <= 5:
-            prodcut = "Ponds Cream"
+            prodcut = "Goodness full coverage makeup"
         elif undertone == "neutral" and state == "liquid" and color <= 5:
-            product = "Vaseline"
+            product = "Goodness full coverage makeup"
         elif undertone == "warm" and state == "powder" and color <= 8:
-            product = "Boroline"
+            product = "Mattifying Foundation"
         else:
             product = "Lakme"
         speech = "Hi, Right Product for you is  " + product + ". Do you want me to add this in to your cart"
